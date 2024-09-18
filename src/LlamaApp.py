@@ -5,7 +5,11 @@ from langchain import PromptTemplate, LLMChain
 import sqlite3
 import pandas as pd
 import json
+from dotenv import load_dotenv
 import os
+
+# Load environment variables from the .env file
+load_dotenv()
 
 
 
@@ -18,6 +22,7 @@ class Response_Generation:
     def __init__(self) -> None:
      
         self._sqlite_DB_Path = os.path.join('artifacts','BEV_database.db')
+        self._hf_token =  os.getenv('HUGGINGFACEHUB_API_TOKEN')
 
 
 
@@ -169,7 +174,7 @@ class Response_Generation:
                             top_k=10,
                             top_p=0.25,
                             temperature=0.20,
-                            huggingfacehub_api_token='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'
+                            huggingfacehub_api_token=self._hf_token
                             )
 
             user_data = self.parse_json(jsondata)
